@@ -29,7 +29,7 @@ let computerScore = 0;
 function playRound(humanChoice, computerChoice) {
     let choice1 = humanChoice.toLowerCase().trim();
     if (choice1 == computerChoice) {
-        console.log("It's a draw!"); //no addition to score when drawn
+        console.log("It's a draw! You both had " + computerChoice + "."); //no addition to score when drawn
     } else if ((choice1 == "paper" && computerChoice == "rock")
         || (choice1 == "scissors" && computerChoice == "paper")
         || (choice1 == "rock" && computerChoice == "scissors")) {
@@ -38,15 +38,27 @@ function playRound(humanChoice, computerChoice) {
     } else if ((choice1 == "rock" && computerChoice == "paper")
         || (choice1 == "paper" && computerChoice == "scissors")
         || (choice1 == "scissors" && computerChoice == "rock")) {
-        console.log("Computer wins! You had " + choice1 + " but computer had " + computerChoice);
+        console.log("Computer wins! You had " + choice1 + " but computer had " + computerChoice + ".");
         computerScore += 1; //adds 1 point to computerScore when computer wins
     }
 }
 
-//
-function playGame() {
-    const humanPick = getHumanChoice();
-    const computerPick = getComputerChoice();
+//setting number of games played to win
+function playGame(numRounds) {
+    for (let i = 1; i <= numRounds; i++) {
+        const humanPick = getHumanChoice();
+        const computerPick = getComputerChoice();
 
-    playRound(humanPick, computerPick);
+        playRound(humanPick, computerPick);
+        console.log("The current score is " + humanScore + ":" + computerScore);
+    }
+    if (humanScore == computerScore) {
+        console.log("Draw! Try again next time!");
+    } else if (humanScore > computerScore) {
+        console.log("You have won the " + numRounds + " against the computer!");
+    } else if (humanScore < computerScore) {
+        console.log("Computer has won. Better luck next time!");
+    }
 }
+
+playGame(5);
